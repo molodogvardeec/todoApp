@@ -1,24 +1,20 @@
 import { Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import "@mantine/core/styles.css";
-import { useState } from "react";
 import { DatePickerInput } from "@mantine/dates";
 
 export default function Form() {
-  const [value, setValue] = useState(null);
   const form = useForm({
-    mode: "uncontrolled",
+    mode: "controlled",
     initialValues: {
-      email: "",
       text: "",
-      termsOfService: false,
+      date: null
     },
 
     validate: {
       text: (value) => (value.length > 0 ? null : "Invalid text"),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
+
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <TextInput
@@ -31,11 +27,13 @@ export default function Form() {
       <DatePickerInput
         label="Pick date"
         placeholder="Pick date"
-        value={value}
-        onChange={setValue}
+        valueFormat="YYYY-MM-DD"
+        key={form.key("date")}
+        {...form.getInputProps("date")}
       />
       <Group justify="flex-end" mt="md">
         <Button type="submit">Submit</Button>
+        <Button type="reset" variant='filled' onClick={form.reset}>reset</Button>
       </Group>
     </form>
   );
