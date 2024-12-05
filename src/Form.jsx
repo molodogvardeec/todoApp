@@ -1,6 +1,5 @@
 import { Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import "@mantine/core/styles.css";
 import { useState } from "react";
 import { DatePickerInput } from "@mantine/dates";
 
