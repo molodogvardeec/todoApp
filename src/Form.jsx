@@ -1,39 +1,81 @@
-import { Button, Group, TextInput } from "@mantine/core";
+import { Select, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { DatePickerInput } from "@mantine/dates";
+import { DateTimePicker } from "@mantine/dates";
+import { notifications } from "@mantine/notifications";
+import PriorityBadge from "./badge";
 
-export default function Form() {
+export default function Form(props) {
+  const { handleAddTask } = props;
   const form = useForm({
-    mode: "controlled",
+    mode: "uncontrolled",
     initialValues: {
       text: "",
-      date: null
+      date: null,
+      select: "",
+      description: "",
     },
 
     validate: {
       text: (value) => (value.length > 0 ? null : "Invalid text"),
+      date: (value) => (value ? null : "Invalid date"),
+      select: (value) => (value.length > 0 ? null : "Invalid select"),
+      description: (value) => (value.length > 0 ? null : "Invalid description"),
     },
   });
 
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
-      <TextInput
-        withAsterisk
-        label="Введи задачу"
-        placeholder="Введи задачу"
-        key={form.key("text")}
-        {...form.getInputProps("text")}
-      />
-      <DatePickerInput
-        label="Pick date"
-        placeholder="Pick date"
-        valueFormat="YYYY-MM-DD"
-        key={form.key("date")}
-        {...form.getInputProps("date")}
-      />
-      <Group justify="flex-end" mt="md">
-        <Button type="submit">Submit</Button>
-        <Button type="reset" variant='filled' onClick={form.reset}>reset</Button>
+    <form
+      className="form"
+      onSubmit={form.onSubmit((values) => {
+        handleAddTask(values);
+        notifications.show({
+          color: "green",
+          title: "Задача успешно создана",
+          message: values.text,
+          position: "top-right",
+        });
+      })}
+    >
+      <h1>To-Do Application</h1>
+      <Group grow>
+        <TextInput
+          withAsterisk
+          label="Название"
+          placeholder="Введи название"
+          key={form.key("text")}
+          {...form.getInputProps("text")}
+        />
+        <TextInput
+          label="Описание"
+          placeholder="Введи описание"
+          key={form.key("description")}
+          {...form.getInputProps("description")}
+        />
+        <DateTimePicker
+          withAsterisk
+          label="Дата и время"
+          placeholder="Date pick"
+          valueFormat="YYYY-MM-DD HH:mm"
+          key={form.key("date")}
+          {...form.getInputProps("date")}
+        />
+        <Select
+          label="Приоритет"
+          placeholder="Выбери приоритет"
+          renderOption={PriorityBadge}
+          data={[
+            { value: "Высокий", label: "Высокий", color: "red" },
+            { value: "Средний", label: "Средний", color: "orange" },
+            { value: "Низкий", label: "Низкий", color: "green" },
+          ]}
+          key={form.key("select")}
+          {...form.getInputProps("select")}
+        />
+      </Group>
+      <Group className="buttons" justify="flex-end" mt="md" grow>
+        <Button fz="xl" className="submit" type="submit">
+          Добавить задание
+        </Button>
       </Group>
     </form>
   );

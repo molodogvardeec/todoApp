@@ -14,6 +14,7 @@
     "@mantine/dates": "^7.14.3",
     "@mantine/form": "^7.14.3",
     "@mantine/hooks": "^7.14.3",
+    "@mantine/notifications": "^7.15.1",
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -29,8 +30,8 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
     "postcss": "^8.4.49",
-    "postcss-simple-vars": "^7.0.1",
     "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "vite": "^6.0.2"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
