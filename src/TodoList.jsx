@@ -1,9 +1,8 @@
-import { Badge, Card, Group, Text, Title } from "@mantine/core";
+import { Badge, Card, Group, Text, Title, Tooltip } from "@mantine/core";
 import React from "react";
 
 export default function TodoList(props) {
   const { todos } = props;
-  console.log(todos);
   return (
     <ul>
       {todos.map((todo, i) => {
@@ -20,13 +19,34 @@ export default function TodoList(props) {
             : todo.select == "Низкий"
             ? "green"
             : null;
+
         return (
-          <Card radius="md" mt="xs" shadow="xl" withBorder key={i}>
-            <Group justify="space-between">
-              <Title order={4}>{todo.text}</Title>
-              <Badge color={color}>{todo.select}</Badge>
+          <Card
+            className="card"
+            radius="md"
+            mt="xs"
+            shadow="xl"
+            withBorder
+            key={i}
+          >
+            <Group justify="space-between" wrap="flex-wrap">
+              <Tooltip className="tooltip" label={todo.text} multiline w={350}>
+                <Title className="title" order={4}>
+                  {todo.text}
+                </Title>
+              </Tooltip>
+              <Badge className="badge" color={color}>
+                {todo.select}
+              </Badge>
             </Group>
-            <Text>{todo.description}</Text>
+            <Tooltip
+              className="tooltip"
+              label={todo.description}
+              multiline
+              w={350}
+            >
+              <Text className="text">{todo.description}</Text>
+            </Tooltip>
             <Text>
               {day}.{month}.{year} {hours}:{minutes}
             </Text>

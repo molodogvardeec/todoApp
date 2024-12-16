@@ -18,8 +18,7 @@ export default function Form(props) {
     validate: {
       text: (value) => (value.length > 0 ? null : "Invalid text"),
       date: (value) => (value ? null : "Invalid date"),
-      select: (value) => (value.length > 0 ? null : "Invalid select"),
-      description: (value) => (value.length > 0 ? null : "Invalid description"),
+      select: (value) => (value.length > 0 ? null : "Invalid priority"),
     },
   });
 
@@ -29,6 +28,7 @@ export default function Form(props) {
       onSubmit={form.onSubmit((values) => {
         handleAddTask(values);
         notifications.show({
+          autoClose: 1000,
           color: "green",
           title: "Задача успешно создана",
           message: values.text,
@@ -37,7 +37,7 @@ export default function Form(props) {
       })}
     >
       <h1>To-Do Application</h1>
-      <Group grow>
+      <Group grow align="stretch">
         <TextInput
           withAsterisk
           label="Название"

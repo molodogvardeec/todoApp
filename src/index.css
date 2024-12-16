@@ -12,7 +12,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
-  margin: 0 10px;
+  padding: 0 15px;
+  overflow: hidden;
   width: 100%;
 }
 a {
@@ -75,7 +76,30 @@ h1 {
   display: flex;
   flex-direction: column;
 }
-ul{
+ul {
   padding: 0;
 }
+.card {
+}
+.tooltip {
+  overflow: hidden;
+  word-break: break-all;
+}
 
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.badge {
+  min-width: fit-content;
+}
