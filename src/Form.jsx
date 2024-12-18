@@ -5,7 +5,7 @@ import { notifications } from "@mantine/notifications";
 import PriorityBadge from "./badge";
 
 export default function Form(props) {
-  const { handleAddTask } = props;
+  const { handleAddTask, setEditInput, editInput } = props;
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -26,7 +26,7 @@ export default function Form(props) {
     <form
       className="form"
       onSubmit={form.onSubmit((values) => {
-        handleAddTask(values);
+        handleAddTask({ ...values, id: Date.now() });
         notifications.show({
           autoClose: 1000,
           color: "green",
@@ -39,6 +39,8 @@ export default function Form(props) {
       <h1>To-Do Application</h1>
       <Group grow align="stretch">
         <TextInput
+          // value={editInput}
+          onChange={(e) => setEditInput(e.target.value)}
           withAsterisk
           label="Название"
           placeholder="Введи название"

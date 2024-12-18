@@ -21,6 +21,18 @@ const theme = createTheme({
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [editInput, setEditInput] = useState(""); 
+
+  const deleteTask = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleEditTask = (id, text) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text } : todo))
+    );
+  };
+
 
   const handleAddTask = (newTodo) => {
     const newTodoList = [...todos, newTodo];
@@ -30,8 +42,17 @@ export default function App() {
   return (
     <MantineProvider>
       <Notifications />
-      <Form handleAddTask={handleAddTask} />
-      <TodoList todos={todos} />
+      <Form
+        editInput={editInput}
+        handleAddTask={handleAddTask}
+        setEditInput={setEditInput}
+      />
+      <TodoList
+        todos={todos}
+        setTodos={setTodos}
+        handleEditTask={handleEditTask}
+        deleteTask={deleteTask}
+      />
     </MantineProvider>
   );
 }
